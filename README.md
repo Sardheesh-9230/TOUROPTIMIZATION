@@ -22,7 +22,6 @@ typedef struct {
  int *sequence; 
  int num_destinations; 
 } Tour; 
-14
 // Function to create a new destination 
 Destination* create_destination(const char *name, double latitude, double longitude) { 
  Destination *dest = (Destination*)malloc(sizeof(Destination)); 
@@ -49,7 +48,6 @@ void initialize_graph(Graph *graph) {
 // Function to add a destination to the graph 
 void add_destination(Graph *graph, const char *name, double latitude, double longitude) 
 { 
-15
  if (graph->num_destinations < MAX_DESTINATIONS) { 
  Destination *dest = create_destination(name, latitude, longitude); 
  graph->destinations[graph->num_destinations] = dest; 
@@ -77,7 +75,6 @@ double total_tour_distance(Graph *graph, Tour *tour) {
 } 
 // Function to initialize a tour 
 void initialize_tour(Tour *tour, int capacity) { 
-16
  tour->sequence = (int*)malloc(capacity * sizeof(int)); 
  tour->num_destinations = 0; 
 } 
@@ -103,7 +100,6 @@ void nearest_neighbor(Graph *graph, Tour *tour) {
  for (int i = 0; i < graph->num_destinations; i++) { 
  if (!visited[i]) { 
  double distance = graph->adj_matrix[current_index][i]; 
-17
  if (distance < min_distance) { 
  min_distance = distance; 
  nearest_index = i; 
@@ -130,7 +126,6 @@ void two_opt(Graph *graph, Tour *tour) {
 >num_destinations]] - 
  graph->adj_matrix[tour->sequence[i - 1]][tour->sequence[i]] - 
  graph->adj_matrix[tour->sequence[j]][tour->sequence[(j + 1) % tour-
-18
 >num_destinations]]; 
  if (delta < 0) { 
  // Reverse the tour segment between i and j 
@@ -157,7 +152,6 @@ int main() {
  printf("Do you want to create random destinations (Y/N)? "); 
  scanf(" %c", &choice); 
  if (choice == 'Y' || choice == 'y') { 
-19
  printf("Enter the number of random destinations: "); 
  scanf("%d", &num_destinations); 
  // Create random destinations 
@@ -185,7 +179,6 @@ int main() {
  add_destination(&graph, name, latitude, longitude); 
  } 
  } 
-20
  if (graph.num_destinations > 1) { 
  // Construct initial tour using Nearest Neighbor Algorithm 
  nearest_neighbor(&graph, &tour); 
@@ -207,5 +200,3 @@ int main() {
  free(tour.sequence); 
  return 0; 
 } 
-21
-
